@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assignment
@@ -102,17 +103,57 @@ namespace Assignment
 
         public int[] AS01_FindFirstAndLastElementOfArray(int[] array, int target)
         {
-            throw new NotImplementedException();
+            int first = -1;
+            int last = -1;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == target)
+                {
+                    if (first == -1)
+                    {
+                        first = i;
+                    }
+                    last = i;
+                }
+            }
+
+            int[] result = (first == -1) ? new int[] { -1 } : new int[] { first, last };
+
+            return result;
         }
 
         public int AS02_FindMaxLessThan(int[] array, int target)
         {
-            throw new NotImplementedException();
+            bool found = false;
+            int result = int.MinValue;
+
+            foreach (int value in array)
+            {
+                if (value < target && (!found || value > result))
+                {
+                    result = value;
+                    found = true;
+                }
+            }
+
+            int output = found ? result : -1;
+            return output;
         }
 
         public int[] AS03_FindRange(int[] array, int min, int max)
         {
-            throw new NotImplementedException();
+            List<int> result = new List<int>();
+
+            foreach (int value in array)
+            {
+                if (value >= min && value <= max)
+                {
+                    result.Add(value);
+                }
+            }
+
+            return result.ToArray();
         }
 
         #endregion
@@ -121,7 +162,22 @@ namespace Assignment
 
         public int[] EX01_FindTargetEnemies(int[] enemyHPs, int mana)
         {
-            throw new NotImplementedException();
+            int[] sorted = (int[])enemyHPs.Clone();
+            Array.Sort(sorted);
+
+            List<int> result = new List<int>();
+            int sum = 0;
+
+            foreach (int hp in sorted)
+            {
+                if (sum + hp <= mana)
+                {
+                    sum += hp;
+                    result.Add(hp);
+                }
+            }
+
+            return result.ToArray();
         }
 
         #endregion
